@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bir Sürpriz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #FC8EAC;
+      color: white;
+      text-align: center;
+      padding: 40px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .box {
+      max-width: 400px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 85%;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: white;
+      color: #FC8EAC;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #spotifyBtn {
+      display: none;
+      margin-top: 20px;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 24px;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateX(0px) translateY(0px);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(40px) translateY(-50vh);
+      }
+      100% {
+        transform: translateX(-40px) translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Cevapla bakalım</h2>
+
+  <p>1. İlk tanış olduğumuz tarix?</p>
+  <input id="q1" type="text">
+
+  <p>2. En çok kullandığımız söz?</p>
+  <input id="q2" type="text">
+
+  <p>3. Ne zaman ayrılcaz?</p>
+  <input id="q3" type="text">
+
+  <br>
+  <button onclick="checkAnswers()">Kontrol Et</button>
+
+  <p id="message"></p>
+
+  <button id="spotifyBtn" onclick="goSpotify()">Sürprizi Aç</button>
+</div>
+
+<script>
+function checkAnswers() {
+  const q1 = document.getElementById("q1").value.trim();
+  const q2 = document.getElementById("q2").value.trim().toLowerCase();
+  const message = document.getElementById("message");
+  const spotifyBtn = document.getElementById("spotifyBtn");
+
+  if (q1 === "28.01.2024" && q2 === "askim") {
+    message.innerHTML = "Asla ayrılmıcaz eşek";
+    spotifyBtn.style.display = "inline-block";
+  } else {
+    message.innerHTML = "Bir daha dene";
+  }
+}
+
+function goSpotify() {
+  window.location.href = "https://open.spotify.com/track/1oAwsWBovWRIp7qLMGPIet?si=NepfrwslStyCZgP2fGs8zQ";
+}
+
+/* Generate continuous hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (6 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 10000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
